@@ -40,7 +40,7 @@ class Solution:
             # 如果當前元素是1，則將當前的連續 1 的個數加 1
             if num == 1:
                 count += 1
-                
+
             #否則，使用之前的連續 1 的個數更新最大的連續 1 的個數
             # 並將當前的連續 1 的個數清零。
             else:
@@ -51,8 +51,8 @@ class Solution:
         # 如果遍歷數組結束之後不更新最大的連續 11 的個數，則會導致結果錯誤
         maxcount = max(maxcount, count)
         return maxcount
-s = Solution()
-s.findMaxConsecutiveOnes([1,1,0,1,1,1])
+# s = Solution()
+# s.findMaxConsecutiveOnes([1,1,0,1,1,1])
 
 
 # leetcode submit region end(Prohibit modification and deletion)
