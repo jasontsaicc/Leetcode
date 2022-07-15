@@ -43,32 +43,33 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
+
+"""
+可以用正則 也可以用雙指針,
+1.先把” ”去除以及轉小寫
+2.設定左右指針(注意右邊index)
+3.使用while 判斷 執行條件 left < right
+4.如果left指針的值 == right的值 個別往前往後,
+5. 如果遇到不是isalnum() 左邊往前,
+6. 如果遇到不是isalnum() 右邊往後,
+7. 回傳False,
+8while 回傳True
+"""
 class Solution:
     def isPalindrome(self, s: str) -> bool:
-        s_low = s.lower()
-        left, right = 0, len(s_low) - 1
-        # 判斷只要右指針沒撞到左指針都執行
+        s = s.replace(' ','').lower()
+        left,right = 0, len(s)-1
+
         while left < right:
-            # 使用兩個循環找到左邊和右邊為字母或是數字的位置
-            # string.isalnum() 如果 str 至少有一個字符並且所有字符都是字母或數字則返回 True,否則返回 False
-            while left < len(s_low) - 1 and not s_low[left].isalnum():
+            if s[left] == s[right]:
                 left += 1
-            while right > 0 and not s_low[right].isalnum():
                 right -= 1
-
-            # 指針相撞時跳出
-            if left >= right:
-                break
-
+            elif not s[left].isalnum():
+                left += 1
+            elif not s[right].isalnum():
+                right -= 1
             else:
-                # 如果左右指針所指不同，則肯定不構成回文
-                if s_low[left] != s_low[right]:
-                    return False
-                # 左右指針各前進一步
-                else:
-                    left += 1
-                    right -= 1
+                return False
         return True
-
 
 # leetcode submit region end(Prohibit modification and deletion)
