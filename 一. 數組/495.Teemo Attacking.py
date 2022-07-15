@@ -49,26 +49,31 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     # def findPoisonedDuration(self, timeSeries: List[int], duration: int) -> int:
-    def findPoisonedDuration(self, timeSeries, duration):
-        # expired = 未中毒的起始時間 ans = 持續中毒時間
-        ans, expired = 0, 0
-        # 遍歷每個時間點
-        # 遭遇第 i 攻擊時
-        for i in range(len(timeSeries)):
-            # 如果當前他正處於未中毒狀態
-            if timeSeries[i] >= expired:
-                # 則此時他的中毒持續時間應增加duration
-                ans += duration
-            # 如果當前他正處於中毒狀態
-            else:
-                # 上次中毒後結束時間為expired
-                # 本次中毒後結束時間為timeSeries[i] + duration
-                # 因此本次中毒增加的持續中毒時間為 timeSeries[i] + duration - expired
-                ans += timeSeries[i] + duration - expired
-            # 我們將每次中毒後增加的持續中毒時間相加即為總的持續中毒時間
-            expired = timeSeries[i] + duration
-        return ans
+    # def findPoisonedDuration(self, timeSeries, duration):
+    #     # expired = 未中毒的起始時間 ans = 持續中毒時間
+    #     ans, expired = 0, 0
+    #     # 遍歷每個時間點
+    #     # 遭遇第 i 攻擊時
+    #     for i in range(len(timeSeries)):
+    #         # 如果當前他正處於未中毒狀態
+    #         if timeSeries[i] >= expired:
+    #             # 則此時他的中毒持續時間應增加duration
+    #             ans += duration
+    #         # 如果當前他正處於中毒狀態
+    #         else:
+    #             # 上次中毒後結束時間為expired
+    #             # 本次中毒後結束時間為timeSeries[i] + duration
+    #             # 因此本次中毒增加的持續中毒時間為 timeSeries[i] + duration - expired
+    #             ans += timeSeries[i] + duration - expired
+    #         # 我們將每次中毒後增加的持續中毒時間相加即為總的持續中毒時間
+    #         expired = timeSeries[i] + duration
+    #     return ans
 
+    def findPoisonedDuration(self, timeSeries, duration):
+        #
+        for i in range(len(timeSeries) - 1):
+            timeSeries[i] = min(timeSeries[i + 1]-timeSeries[i], duration)
+        return sum(timeSeries[:-1]) + duration
 
 s = Solution()
 s.findPoisonedDuration([1, 4], 2)
