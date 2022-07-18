@@ -18,18 +18,30 @@ Output: 4
 
 """
 class Solution:
-    #     def searchInsert(self, nums: List[int], target: int) -> int:
-    def searchInsert(self, nums, target):
-        left, right = 0, len(nums)-1
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        # 定義target在左閉右閉的區間裡，[left, right]
+        left, right = 0, len(nums) - 1
+        # 當left==right，區間[left, right]依然有效
         while left <= right:
+            # 防止溢出 等同於(left + right)/2
             mid = (left + right) // 2
-            if nums[mid] == target:
-                return mid
-            if nums[mid] < target:
+            # target 在左區間，所以[left, middle - 1]
+            if nums[mid] > target:
+                right = mid -1
+            # target 在右區間，所以[middle + 1, right]
+            elif nums[mid] < target:
                 left = mid +1
             else:
-                right = mid -1
-        return left
+                return mid
+        """ 分別處理如下四種情況
+            目標值在數組所有元素之前  [0, -1]
+            目標值等於數組中某一個元素  return middle;
+            目標值插入數組中的位置 [left, right]，return  right + 1
+            目標值在數組所有元素之後的情況 [left, right]， 因為是右閉區間，所以 return right + 1
+            
+        """
+
+        return right +1
 
 ans = Solution().searchInsert([1,3,5,6], 5)
 
