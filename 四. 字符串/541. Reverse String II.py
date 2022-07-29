@@ -1,22 +1,17 @@
 class Solution:
-    def reverseStr(self, s, k):
-        from functools import reduce
-        # 先把s轉換成list
-        s = list(s)
+    def reverseStr(self, s: str, k: int) -> str:
 
-        # 這邊自己使用雙指針 來實作reverse函數
-        def reverse(s):
-            left, right = 0, len(s) - 1
+        def reverse_substring(text):
+            left, right = 0, len(text) - 1
             while left < right:
-                s[left], s[right] = s[right], s[left]
+                text[left], text[right] = text[right], text[left]
                 left += 1
                 right -= 1
-            return s
-        # make sure we reverse each 2k elements
-        for i in range(0, len(s), 2*k):
-            s[i:(i+k)] = reverse(s[i:(i+k)])
-        # combine list into str.
-        return reduce(lambda a, b : a + b , s)
+            return text
 
-s = Solution()
-s.reverseStr(s = "abcdefg", k = 2)
+        res = list(s)
+
+        for cur in range(0, len(s), 2 * k):
+            res[cur: cur + k] = reverse_substring(res[cur: cur + k])
+
+        return ''.join(res)
