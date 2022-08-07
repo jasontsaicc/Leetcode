@@ -46,19 +46,24 @@ Output: 1
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
-import collections
-
 class Solution:
     def fourSumCount(self, nums1, nums2, nums3, nums4):
-        hashmap = collections.defaultdict(int)
-        res = 0
-        for a in nums1:
-            for b in nums2:
-                hashmap[a + b] += 1
-        for c in nums3:
-            for d in nums4:
-                res += hashmap[-(c + d)]
-        return res
+        hashmap = dict()
+        for n1 in nums1:
+            for n2 in nums2:
+                if n1 + n2 in hashmap:
+                    hashmap[n1+n2] += 1
+                else:
+                    hashmap[n1+n2] = 1
+
+
+        count = 0
+        for n3 in nums3:
+            for n4 in nums4:
+                key = -n3 -n4
+                if key in hashmap:
+                    count += hashmap[key]
+        return count
 
 s = Solution()
 s.fourSumCount(nums1 = [1,2], nums2 = [-2,-1], nums3 = [-1,2], nums4 = [0,2])
