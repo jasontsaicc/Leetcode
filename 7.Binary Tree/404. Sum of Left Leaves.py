@@ -23,5 +23,4 @@ class Solution:
         self.sumOfLeftLeaves(root.left)
         # 遍歷右子樹
         self.sumOfLeftLeaves(root.right)
-        
         return self.res
